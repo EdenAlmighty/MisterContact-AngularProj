@@ -1,0 +1,26 @@
+.input-container {
+    display: flex;
+    background-color: white;
+    height: 30px;
+    width: 100%;
+    border-radius: 2em;
+
+    fa-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        margin: 8px;
+    }
+
+    input {
+        border: none;
+        width: 100%;
+        border-radius: 2em;
+        
+        &:focus-visible {
+            border: none;
+            outline: none;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.contact-list-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-weight: 600;
+
+    .contact-card {
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+
+        li {
+            border-radius: 2em;
+            display: flex;
+            align-items: center;
+            gap: .2em;
+            transition: .2s ease;
+
+            fa-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 2em;
+                background-color: grey;
+                margin: 8px;
+                height: 40px;
+                min-width: 40px;
+            }
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                line-break: none;
+                margin-right: 8px;
+            }
+
+            &:hover {
+                scale: 1.02;
+                background-color: rgb(35, 44, 49);
+            }
+        }
+    }
+}

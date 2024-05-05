@@ -1,0 +1,21 @@
+<section class="contact-edit-page">
+    <!-- <h2>{{ false ? "Edit" : "Add}}</section>h2> -->
+    <h2> {{false ? "Edit" : "Add"}} Contact</h2>
+    <form (ngSubmit)="onSaveContact()">
+        <label for="name">Name</label>
+        <input [(ngModel)]="contact.name" type="text" name="name" id="name">
+
+        <label for="phone">Phone</label>
+        <input [(ngModel)]="contact.phone" type="number" name="phone" id="phone">
+
+        <label for="email">Email</label>
+        <input [(ngModel)]="contact.email" type="email" name="email" id="email">
+
+        <!-- <label for="email">Email</label>
+        <input [(ngModel)]="contact.email" type="email" name="email" id="email"> -->
+        <section class="btns">
+            <button class="btn">Save</button>
+            <button routerLink="/contact" class="btn-regular" type="button">Back</button>
+        </section>
+    </form>
+</section>

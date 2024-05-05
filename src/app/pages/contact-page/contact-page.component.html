@@ -1,0 +1,8 @@
+<section class="pet-index" [class.loading]="isLoading$ | async">
+  <contact-filter></contact-filter>
+  <p [style.margin-bottom.px]="10">
+    <a routerLink="/contact/edit">Add Contact</a>
+  </p>
+    <contact-list (remove)="onRemovePet($event)" [contacts]="contacts$ | async"></contact-list>
+</section>
+<router-outlet></router-outlet>

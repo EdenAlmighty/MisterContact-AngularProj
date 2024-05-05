@@ -1,0 +1,12 @@
+<section class="info">
+    <a routerLink="/contact/{{ contact._id }}" class="data">
+        <li>
+            <fa-icon [icon]="faUser"></fa-icon>
+            <span>{{ contact.name }}</span>
+        </li>
+    </a>
+    <section class="actions">
+        <a [routerLink]="['/contact', 'edit', contact._id]">Edit</a>
+        <button (click)="onRemoveContact()" class="remove-btn">X</button>
+    </section>
+</section>
