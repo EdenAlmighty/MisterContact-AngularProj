@@ -15,6 +15,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './cmps/loader/loader.component';
+import { DateDescPipe } from './pipes/date-desc.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LoaderComponent } from './cmps/loader/loader.component';
     ContactDetailsPageComponent,
     ContactFilterComponent,
     InputComponent,
-    LoaderComponent
+    LoaderComponent,
+    DateDescPipe
   ],
   imports: [
     BrowserModule,
