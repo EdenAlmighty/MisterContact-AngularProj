@@ -3,10 +3,12 @@
         <li>
             <fa-icon [icon]="faUser"></fa-icon>
             <span>{{ contact.name }}</span>
+            <section (click)="$event.stopPropagation()" class="actions">
+                <a [routerLink]="['/contact/edit', contact._id]">            
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                </a>
+                <button (click)="onRemove.emit(contact._id)" class="remove-btn">X</button>
+            </section>
         </li>
     </a>
-    <section class="actions">
-        <a [routerLink]="['/contact', 'edit', contact._id]">Edit</a>
-        <button (click)="onRemoveContact()" class="remove-btn">X</button>
-    </section>
 </section>

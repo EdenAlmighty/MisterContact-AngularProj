@@ -7,20 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserService {
 
-  private _user$ = new BehaviorSubject<User>({
+  private _loggedInUser$ = new BehaviorSubject<User>({
     name: 'Puki',
     coins: 100,
-    // moves: []
+    moves: []
   })
-  public user$ = this._user$.asObservable()
+  public loggedInUser$ = this._loggedInUser$.asObservable();
 
   constructor() { }
 
   getUser(): User {
-    return {
-      name: 'Puki',
-      coins: 100,
-    }
+    return this._loggedInUser$.value
   }
 
 }

@@ -2,8 +2,12 @@ li {
     border-radius: 2em;
     display: flex;
     align-items: center;
+    // justify-content: space-around;
     gap: .2em;
     transition: .2s ease;
+    background-color: rgb(35, 44, 49);
+
+    // background-color: grey;
 
     fa-icon {
         display: flex;
@@ -20,13 +24,38 @@ li {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        width: 100%;
         line-break: none;
         margin-right: 8px;
+
+        // margin-right: 100%;
     }
+
+
+    .actions {
+        display: flex;
+        align-items: center;
+
+        .remove-btn {
+            background-color: rgb(117, 31, 31);
+            color: white;
+            border-radius: 2em;
+            margin: 8px;
+            height: 40px;
+            width: 40px;
+        }
+
+
+        fa-icon {
+            background-color: transparent;
+            margin: 2px;
+
+        }
+
+    }
+
 
     &:hover {
         scale: 1.02;
-        background-color: rgb(35, 44, 49);
     }
 }
-

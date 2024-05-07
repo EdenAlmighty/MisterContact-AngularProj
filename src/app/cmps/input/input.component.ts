@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { ContactService } from '../../services/contact.service';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-import { ContactFilter } from '../../models/contact.model';
+import { ContactFilter } from '../../models/contact.filter';
 
 @Component({
   selector: 'app-input',

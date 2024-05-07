@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, take } from 'rxjs';
 import { storageService } from './async-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Contact, ContactFilter } from '../models/contact.model';
+import { Contact } from '../models/contact.model';
+import { ContactFilter } from '../models/contact.filter';
 const ENTITY = 'contacts'
 
 @Injectable({
@@ -24,34 +25,33 @@ export class ContactService {
         }
     }
 
-    // public loadContacts() {
-    //     return from(storageService.query<Contact>(ENTITY))
-    //         .pipe(
-    //             tap(contacts => {
-    //                 const filterBy = { term: '' }
-    //                 if (filterBy && filterBy.term) {
-    //                     contacts = this._filter(contacts, filterBy.term)
-    //                 }
-    //                 contacts = contacts.filter(contact => contact.name.toLowerCase().includes(filterBy.term.toLowerCase()))
-    //                 this._contacts$.next(this._sort(contacts))
-    //             }),
-    //             retry(1),
-    //             catchError(this._handleError)
-    //         )
-    // }
-
-    public query() {
-        return from(storageService.query<Contact>(ENTITY))
+    public loadContacts() {
+        return from(storageService.query(ENTITY))
             .pipe(
                 tap(contacts => {
-                    const filterBy = this._filterBy$.value
+                    const filterBy = { term: '' }
+                    if (filterBy && filterBy.term) {
+                        contacts = this._filter(contacts, filterBy.term)
+                    }
                     contacts = contacts.filter(contact => contact.name.toLowerCase().includes(filterBy.term.toLowerCase()))
-                    this._contacts$.next(contacts)
+                    this._contacts$.next(this._sort(contacts))
                 }),
                 retry(1),
                 catchError(this._handleError)
             )
     }
+
+    // private _updateContact(contact: Contact) {
+    //     return from(storageService.put(ENTITY, contact))
+    //         .pipe(
+    //             tap(updatedContact => {
+    //                 const contacts = this._contacts$.value
+    //                 this._contacts$.next(contacts.map(contact => contact._id === updatedContact._id ? updatedContact : contact))
+    //             }),
+    //             retry(1),
+    //             catchError(this._handleError)
+    //         )
+    // }
 
     // public getById(id: string): Observable<Contact> {
     //     return from(storageService.get<Contact>(ENTITY, id))
@@ -59,11 +59,8 @@ export class ContactService {
     // }
 
     public getById(id: string): Observable<Contact> {
-        return from(storageService.get<Contact>(ENTITY, id))
-            .pipe(
-                retry(1),
-                catchError(this._handleError)
-            )
+        return from(storageService.get(ENTITY, id))
+            .pipe(catchError(this._handleError))
     }
 
     public remove(id: string) {
@@ -83,13 +80,18 @@ export class ContactService {
         return contact._id ? this._update(contact) : this._add(contact)
     }
 
-    public setFilter(filterBy: ContactFilter) {
-        this._filterBy$.next(filterBy)
-        this.query().pipe(take(1)).subscribe()
+    // public setFilter(filterBy: ContactFilter) {
+    //     this._filterBy$.next(filterBy)
+    //     this.query().pipe(take(1)).subscribe()
+    // }
+
+    public setFilter(contactFilter: ContactFilter) {
+        this._filterBy$.next(contactFilter)
+        this.loadContacts().subscribe()
     }
 
     //* Partial uses the object but the key are optional
-    public getEmptyContact(): Partial<Contact> {
+    public getEmptyContact() {
         return {
             name: '',
             phone: '',
@@ -97,31 +99,31 @@ export class ContactService {
         }
     }
 
-    private _update(contact: Contact) {
-        return from(storageService.put<Contact>(ENTITY, contact))
-            .pipe(
-                tap(updatedContact => {
-                    const contacts = this._contacts$.value
-                    const contactIdx = contacts.findIndex(_contact => _contact._id === contact._id)
-                    contacts[contactIdx] = updatedContact
-                    this._contacts$.next([...contacts])
-                    return updatedContact
-                }),
-                retry(1),
-                catchError(this._handleError)
-            )
-    }
     // private _update(contact: Contact) {
     //     return from(storageService.put<Contact>(ENTITY, contact))
     //         .pipe(
     //             tap(updatedContact => {
     //                 const contacts = this._contacts$.value
-    //                 this._contacts$.next(contacts.map(contact => contact._id === updatedContact._id ? updatedContact : contact))
+    //                 const contactIdx = contacts.findIndex(_contact => _contact._id === contact._id)
+    //                 contacts[contactIdx] = updatedContact
+    //                 this._contacts$.next([...contacts])
+    //                 return updatedContact
     //             }),
     //             retry(1),
     //             catchError(this._handleError)
     //         )
     // }
+    private _update(contact: Contact) {
+        return from(storageService.put(ENTITY, contact))
+            .pipe(
+                tap(updatedContact => {
+                    const contacts = this._contacts$.value
+                    this._contacts$.next(contacts.map(contact => contact._id === updatedContact._id ? updatedContact : contact))
+                }),
+                retry(1),
+                catchError(this._handleError)
+            )
+    }
 
     private _add(contact: Contact) {
         return from(storageService.post(ENTITY, contact))

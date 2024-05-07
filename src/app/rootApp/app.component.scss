@@ -7,10 +7,37 @@
         height: 80px;
         display: flex;
         align-items: center;
-        // background-color: #4caf50;
-        color: whitesmoke;
-        margin-bottom: 30px;
         font-size: 1.2em;
+
+        nav {
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: auto;
+            grid-row-gap: 0px;
+            align-items: center;
+            justify-items: center;
+
+            .custom-size {
+                // display: block;
+                font-size: 40px;
+            }
+
+            .custom-size-1 {
+                grid-area: 1 / 1;
+            }
+            
+            .custom-size-2 {
+                grid-area: 1 / 2;
+            }
+            
+            .custom-size-3 {
+                grid-area: 1 / 3;
+            }
+            
+
+        }
     }
 
     main {

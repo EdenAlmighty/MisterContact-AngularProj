@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Contact } from '../../models/contact.model';
 
 @Component({
@@ -10,11 +10,9 @@ import { Contact } from '../../models/contact.model';
 export class ContactPreviewComponent {
 
   @Input() contact!: Contact
-  @Output() remove = new EventEmitter<string>()
-
-  onRemoveContact() {
-    this.remove.emit(this.contact._id)
-  }
+  @Output() onRemove = new EventEmitter<string>()
+  constructor() { }
 
   faUser = faUser
+  faEdit = faPenToSquare
 }

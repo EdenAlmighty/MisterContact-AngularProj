@@ -1,45 +1,34 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { ContactService } from '../../services/contact.service';
-import { Contact } from '../../models/contact.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ContactService } from '../../services/contact.service'
+import { Contact } from '../../models/contact.model'
 
 @Component({
-  selector: 'contact-edit-page',
-  templateUrl: './contact-edit-page.component.html',
-  styleUrl: './contact-edit-page.component.scss'
+    selector: 'contact-edit-page',
+    templateUrl: './contact-edit-page.component.html',
+    styleUrls: ['./contact-edit-page.component.scss'],
 })
 export class ContactEditPageComponent implements OnInit {
+    contact!: Contact
 
-  private contactService = inject(ContactService)
-  //* Here I receive a partial contact from the service
-  private router = inject(Router)
-  private route = inject(ActivatedRoute)
-  
-  contact = this.contactService.getEmptyContact()
+    constructor(
+        private contactService: ContactService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+        this.route.data.subscribe(({ contact }) => {
+            this.contact = contact || this.contactService.getEmptyContact() as Contact
+        })
 
-    this.route.data.pipe(
-      map(data => data['contact']),
-      filter(contact => contact),      
-    ).subscribe(contact => {
-      this.contact = contact
-    })
-  }
+    }
 
-  onSaveContact() {
-    console.log('saving,', this.contact);
-
-    //* Here I save the partial as a Contact object
-    this.contactService.save(this.contact as Contact)
-      .subscribe({
-        next: () => { this.router.navigateByUrl('/contact') },
-        error: err => console.log('err', err)
-      })
-
-  }
-
-
-
+    async onSaveContact() {
+        this.contactService.save(this.contact)
+            .subscribe({
+                next: () => this.router.navigateByUrl('/contact'),
+                error: err => console.log('err:', err)
+            })
+    }
 }

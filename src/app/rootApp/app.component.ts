@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BitcoinService } from '../services/bitcoin.service';
 import { ContactService } from '../services/contact.service';
+import { faAddressBook, faAddressCard, faChartSimple, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +10,13 @@ import { ContactService } from '../services/contact.service';
 })
 export class AppComponent {
   title = 'MisterBitcoin';
-  // rate!: any
-  // error!: string
-
-  // private bitcoinService = inject(BitcoinService)
-  // rate = this.bitcoinService.rate$
-
-  // ngOnInit(): void {
-  //   console.log("Up");
-  // }
-
-  // onGetRate(coins: number = 20) {
-  //   this.bitcoinService.getRate(coins).subscribe({
-  //     // next: rate => this.rate = rate,
-  //     // error: err => this.error = `Failed: ${err.message}`
-  //   })
-  // }
 
   private contactService = inject(ContactService)
   currPage: string = 'home'
 
   ngOnInit(): void {
-      this.contactService.query().subscribe({
-          error: err => {
+    this.contactService.loadContacts().subscribe({
+      error: err => {
               console.log('err:', err)
           }
       })
@@ -40,4 +25,8 @@ export class AppComponent {
   toPage(pageName: string) {
       this.currPage = pageName;
   }
+
+  faHouse = faHouse
+  faContact = faAddressCard
+  faChart = faChartSimple
 }

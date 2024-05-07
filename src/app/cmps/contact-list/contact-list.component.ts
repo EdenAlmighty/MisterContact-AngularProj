@@ -9,13 +9,10 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 })
 export class ContactListComponent implements OnInit {
 
-  @Input() contacts!: Contact[] | null
-  @Output() remove = new EventEmitter<string>()
+  @Input() contacts: Contact[] | null = null
+  @Output() onRemove = new EventEmitter<string>()
 
   ngOnInit(): void {
-    console.log(this.contacts);
-
+    // console.log(this.contacts);
   }
-
-  faUser = faUser
 }

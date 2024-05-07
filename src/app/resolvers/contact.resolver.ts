@@ -12,7 +12,7 @@ export const contactResolver: ResolveFn<Contact> = (route, state) => {
   loaderService.setIsLoading(true)
 
   return contactService.getById(id).pipe(
-    delay(1000),
+    // delay(1000),
     finalize(() => loaderService.setIsLoading(false))
   )
 };

@@ -11,11 +11,16 @@ import { ContactEditPageComponent } from './pages/contact-edit-page/contact-edit
 import { ContactDetailsPageComponent } from './pages/contact-details-page/contact-details-page.component';
 import { ContactFilterComponent } from './cmps/contact-filter/contact-filter.component';
 import { InputComponent } from './cmps/input/input.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './cmps/loader/loader.component';
 import { DateDescPipe } from './pipes/date-desc.pipe';
+import { FilterArrPipe } from './pipes/filter-arr.pipe';
+import { FetchDataPipe } from './pipes/fetch-data.pipe';
+import { AboutComponent } from './cmps/about/about.component';
+import { ChartComponent } from './cmps/chart/chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -29,14 +34,19 @@ import { DateDescPipe } from './pipes/date-desc.pipe';
     ContactFilterComponent,
     InputComponent,
     LoaderComponent,
-    DateDescPipe
+    DateDescPipe,
+    FilterArrPipe,
+    FetchDataPipe,
+    AboutComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

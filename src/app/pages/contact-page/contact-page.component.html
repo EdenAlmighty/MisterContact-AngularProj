@@ -1,8 +1,8 @@
-<section class="pet-index" [class.loading]="isLoading$ | async">
+<section class="contact-page">
   <contact-filter></contact-filter>
-  <p [style.margin-bottom.px]="10">
-    <a routerLink="/contact/edit">Add Contact</a>
-  </p>
-    <contact-list (remove)="onRemovePet($event)" [contacts]="contacts$ | async"></contact-list>
+  <a routerLink="/contact/edit">
+    <fa-icon [icon]="faPlus" class="custom-size"></fa-icon>
+  </a>  
+  <contact-list (onRemove)="onRemoveContact($event)" [contacts]="contacts$ | async"></contact-list>
 </section>
 <router-outlet></router-outlet>

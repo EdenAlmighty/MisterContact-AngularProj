@@ -1,17 +1,16 @@
 <section class="main-app">
+
 	<header class="container">
-		<h1>Mister Bitcoin</h1>
 		<nav>
-			<a routerLink="home" routerLinkActive="true">Home</a>
-			<a routerLink="contact" routerLinkActive="true">Contact</a>
+			<fa-icon routerLink="home" routerLinkActive="true" [icon]="faHouse" class="custom-size 1"></fa-icon>
+			<fa-icon routerLink="contact" routerLinkActive="true" [icon]="faContact" class="custom-size 2"></fa-icon>
+			<fa-icon routerLink="stats" routerLinkActive="true" [icon]="faChart" class="custom-size 3"></fa-icon>
 		</nav>
 	</header>
-  
+
 	<main class="container">
 		<router-outlet></router-outlet>
-        <!-- <home-page></home-page> -->
-        <!-- <contact-page></contact-page> -->
-    </main>
+	</main>
 
 	<footer class="container">
 		<p>BitRights &copy;</p>
